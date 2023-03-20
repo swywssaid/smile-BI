@@ -1,1 +1,1 @@
-# smilegate-project
+# coupon-project
