@@ -1,17 +1,19 @@
 const express = require('express');
+const config = require('./config/index.js');
+const coupons = require('./routes/coupons.js');
+const users = require('./routes/users.js');
+
 const app = express();
-const port = 5000;
 
-// 쿠폰 발급 api
-app.post('/api/coupon', (req, res) => {
-  res.send(req.phone);
-});
+app.use('/api/coupon', coupons);
+app.use('/api/user', users);
 
-// 쿠폰 조회 api, 핸드폰 번호로
-app.get('/api/coupon', (req, res) => {
-  res.send(req.phone);
-});
+// JSON 형식의 요청 본문 파싱
+app.use(express.json());
 
-app.listen(port, () => {
-  console.log(`listening on port ${port}`);
+// 폼 데이터 형식의 요청 본문 파싱
+app.use(express.urlencoded({ extended: true }));
+
+app.listen(config.port, () => {
+  console.log(`listening on port ${config.port}`);
 });
