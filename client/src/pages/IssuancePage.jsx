@@ -9,7 +9,7 @@ export default function IssuancePage() {
 
   // 시작버튼 클릭 시 서버에 유저 정보 전달
   const submitUserInfo = async (url, data) => {
-    const response = await fetch(url, {
+    await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -17,13 +17,13 @@ export default function IssuancePage() {
       body: JSON.stringify(data),
     })
       .then((res) => {
-        setCouponCode(res);
+        console.log(res);
       })
       .catch((err) => {
-        setWarningMessage(err, '이미 발급 받은 회원 정보입니다');
-      });
+        console.log(err);
 
-    return response.json();
+        // setWarningMessage(err, '이미 발급 받은 회원 정보입니다');
+      });
   };
 
   const nameProps = {
@@ -53,7 +53,7 @@ export default function IssuancePage() {
     <div>
       <ValidForm {...nameProps} />
       <ValidForm {...phoneProps} />
-      <button disabled={activateButton(name, phone)} onClick={() => submitUserInfo('api/coupon', { name, phone })}>
+      <button disabled={activateButton(name, phone)} onClick={() => submitUserInfo('/api/coupon', { name, phone })}>
         발급받기
       </button>
       <div>경고메시지: {warningMessage}</div>
