@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default function issuancePage() {
+export default function IssuancePage() {
   return <div>issuancePage</div>;
 }
