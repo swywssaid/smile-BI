@@ -36,6 +36,8 @@ async function getUniqueCoupon() {
 
 // 쿠폰 발급 api
 router.post('/', async (req, res) => {
+  const results = await mysqlDB.execute('SELECT * FROM coupon_total');
+  console.log(results);
   try {
     const { name, phone } = req.body;
     let couponCode;
