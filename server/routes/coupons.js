@@ -15,7 +15,12 @@ async function getUniqueCoupon() {
     });
 
     try {
-      const { _rows } = await mysqlDB.execute('SELECT * FROM coupon_total WHERE coupon_code = ?', [couponCode]);
+      const { _rows } = await mysqlDB.execute(
+        'SELECT * FROM coupon_total WHERE coupon_code = ?',
+
+        [couponCode]
+      );
+
       if (_rows.length === 0) {
         isDuplicated = false;
       } else {
@@ -37,7 +42,11 @@ router.post('/', async (req, res) => {
 
     // 데이터베이스에서 해당 번호가 있는지 조회
     try {
-      const { _rows } = await mysqlDB.execute('SELECT * FROM coupon_total WHERE phone_number = ?', [phone]);
+      const { _rows } = await mysqlDB.execute(
+        'SELECT * FROM coupon_total WHERE phone_number = ?',
+
+        [phone]
+      );
 
       if (_rows.length === 0) {
         couponCode = await getUniqueCoupon();
@@ -50,11 +59,16 @@ router.post('/', async (req, res) => {
 
     // 데이터베이스에 저장
     try {
-      const results = await mysqlDB.execute(
+      await mysqlDB.execute(
         'INSERT INTO coupon_total (phone_number, name, coupon_code, created_at) VALUES (?, ?, ?, default)',
-        [phone, name, couponCode],
+
+        [phone, name, couponCode]
       );
-      res.status(200).json({ message: `쿠폰 번호 저장: 쿠폰 번호는 ${couponCode}입니다.` });
+
+      res
+        .status(200)
+
+        .json({ message: `쿠폰 번호 저장: 쿠폰 번호는 ${couponCode}입니다.` });
     } catch (err) {
       res.status(500).json({ message: '쿠폰 번호 저장: 서버 오류', err });
 
