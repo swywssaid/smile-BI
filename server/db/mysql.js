@@ -102,7 +102,7 @@ const insertUserInfo = async (res, phone, name, couponCode) => {
   }
 };
 
-// 쿠폰 발급 기록 조회(페이지네이션)
+// 쿠폰 발급 이력 조회(페이지네이션)
 const queryHistory = async (res, page, pageSize, name, phone) => {
   try {
     const connection = await pool.getConnection(async (conn) => conn);
@@ -114,14 +114,23 @@ const queryHistory = async (res, page, pageSize, name, phone) => {
     const offset = (page - 1) * pageSize;
 
     try {
+      // 전체 페이지 사이즈에 따른 쿼리
       const [rows] = await connection.query(
         'SELECT * FROM coupon_total WHERE name LIKE ? AND phone_number LIKE ? LIMIT ? OFFSET ?',
         [nameQuery, phoneQuery, pageSize, offset]
       );
 
-      console.log(rows);
+      // 전체 페이지 수 계산을 위한 쿼리
+      const [countRows] = await connection.query(
+        'SELECT * FROM coupon_total WHERE name LIKE ? AND phone_number LIKE ?',
+        [nameQuery, phoneQuery]
+      );
+
+      console.log(rows, countRows.length);
       connection.release();
-      return res.status(200).json({ success: true, data: rows });
+      return res
+        .status(200)
+        .json({ success: true, data: rows, length: countRows.length });
     } catch (err) {
       connection.release();
       console.log(`DB queryHistory err: ${err}`);
@@ -133,7 +142,7 @@ const queryHistory = async (res, page, pageSize, name, phone) => {
 };
 
 module.exports = {
-  queryPhone: queryPhone,
-  insertUserInfo: insertUserInfo,
-  queryHistory: queryHistory,
+  queryPhone,
+  insertUserInfo,
+  queryHistory,
 };
