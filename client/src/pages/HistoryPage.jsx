@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from '../api/axios';
 import Form from '../components/common/Form';
 
 export default function HistoryPage() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [page, setPage] = useState(1);
+  const [histories, setHistories] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const request = await axios.get('/api/coupon/history?page=1&pageSize=10&name=&phone=');
+
+      console.log(request.data.data);
+      setHistories(request.data.data);
+    };
+
+    fetchData();
+  }, []);
 
   const handleChangeName = (e) => {
     setName(e.target.value);
@@ -30,6 +44,27 @@ export default function HistoryPage() {
     <div>
       <Form {...nameProps} />
       <Form {...phoneProps} />
+      <h1>Coupon Dashboard</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Coupon Code</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {histories.map((history) => (
+            <tr key={history.id}>
+              <td>{history.name}</td>
+              <td>{history.phone_number}</td>
+              <td>{history.coupon_code}</td>
+              <td>{history.created_at.split('T')[0]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
