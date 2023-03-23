@@ -16,8 +16,9 @@ export default function IssuancePage() {
       },
       body: JSON.stringify(data),
     })
-      .then((res) => {
-        console.log(res);
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
       })
       .catch((err) => {
         console.log(err);
