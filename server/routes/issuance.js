@@ -36,8 +36,6 @@ async function getUniqueCoupon() {
 
 // 쿠폰 발급 api
 router.post('/', async (req, res) => {
-  const results = await mysqlDB.execute('SELECT * FROM coupon_total');
-  console.log(results);
   try {
     const { name, phone } = req.body;
     let couponCode;
@@ -46,38 +44,37 @@ router.post('/', async (req, res) => {
     try {
       const { _rows } = await mysqlDB.execute(
         'SELECT * FROM coupon_total WHERE phone_number = ?',
-
         [phone]
       );
 
       if (_rows.length === 0) {
         couponCode = await getUniqueCoupon();
       } else {
-        console.log('이미 발급받은 핸드폰 번호');
+        return res
+          .status(400)
+          .json({ message: '이미 발급받은 핸드폰 번호입니다' });
       }
     } catch (err) {
-      console.log(err);
+      return res
+        .status(500)
+        .json({ message: `쿠폰 번호 조회 서버 오류: ${err}` });
     }
 
     // 데이터베이스에 저장
     try {
       await mysqlDB.execute(
         'INSERT INTO coupon_total (phone_number, name, coupon_code, created_at) VALUES (?, ?, ?, default)',
-
         [phone, name, couponCode]
       );
 
-      res
-        .status(200)
-
-        .json({ message: `쿠폰 번호 저장: 쿠폰 번호는 ${couponCode}입니다.` });
+      res.status(200).json({ data: couponCode });
     } catch (err) {
-      res.status(500).json({ message: '쿠폰 번호 저장: 서버 오류', err });
-
-      console.log(err);
+      return res
+        .status(500)
+        .json({ message: `쿠폰 번호 저장 서버 오류: ${err}` });
     }
   } catch (err) {
-    res.status(500).json({ message: '11서버 오류', err });
+    res.status(500).json({ message: '서버 오류', err });
   }
 });
 
