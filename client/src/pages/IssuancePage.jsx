@@ -18,12 +18,16 @@ export default function IssuancePage() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (data.success) {
+          setCouponCode(data.data);
+          setWarningMessage('');
+        } else {
+          setCouponCode('');
+          setWarningMessage('이미 발급 받은 회원 정보입니다');
+        }
       })
       .catch((err) => {
         console.log(err);
-
-        // setWarningMessage(err, '이미 발급 받은 회원 정보입니다');
       });
   };
 
