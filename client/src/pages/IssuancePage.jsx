@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ValidForm from '../components/HistoryPage/ValidForm';
+import ValidForm from '../components/IssuancePage/ValidForm';
 
 export default function IssuancePage() {
   const [name, setName] = useState('');
