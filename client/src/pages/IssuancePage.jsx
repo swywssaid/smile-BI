@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from '../api/axios';
 import Form from '../components/common/Form';
 
 export default function IssuancePage() {
@@ -9,25 +10,35 @@ export default function IssuancePage() {
 
   // 시작버튼 클릭 시 서버에 유저 정보 전달
   const submitUserInfo = async (url, data) => {
-    await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          setCouponCode(data.data);
-          setWarningMessage('');
-        } else {
-          setCouponCode('');
-          setWarningMessage('이미 발급 받은 회원 정보입니다');
-        }
+    const { name, phone } = data;
+
+    await axios
+      .post(url, { name, phone })
+      .then((res) => {
+        setCouponCode(res.data.data);
+        setWarningMessage('');
       })
       .catch((err) => {
-        console.log(err);
+        // 에러 처리
+        if (err.response) {
+          // 요청이 이루어졌고 서버가 응답했을 경우
+
+          const { status } = err.response;
+
+          if (status === 400) {
+            setCouponCode('');
+            setWarningMessage('이미 발급 받은 회원 정보입니다');
+          }
+          if (status === 500) {
+            console.log('Server error');
+          }
+        } else if (err.request) {
+          // 요청이 이루어졌으나 서버에서 응답이 없었을 경우
+          console.log('Error', err.message);
+        } else {
+          // 그 외 다른 에러
+          console.log('Error', err.message);
+        }
       });
   };
 
