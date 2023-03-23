@@ -102,4 +102,38 @@ const insertUserInfo = async (res, phone, name, couponCode) => {
   }
 };
 
-module.exports = { queryPhone: queryPhone, insertUserInfo: insertUserInfo };
+// 쿠폰 발급 기록 조회(페이지네이션)
+const queryHistory = async (res, page, pageSize, name, phone) => {
+  try {
+    const connection = await pool.getConnection(async (conn) => conn);
+    page = Number(page);
+    pageSize = Number(pageSize);
+    const nameQuery = name ? `%${name}%` : `%%`;
+    const phoneQuery = phone ? `%${phone}%` : `%%`;
+
+    const offset = (page - 1) * pageSize;
+
+    try {
+      const [rows] = await connection.query(
+        'SELECT * FROM coupon_total WHERE name LIKE ? AND phone_number LIKE ? LIMIT ? OFFSET ?',
+        [nameQuery, phoneQuery, pageSize, offset]
+      );
+
+      console.log(rows);
+      connection.release();
+      return res.status(200).json({ success: true, data: rows });
+    } catch (err) {
+      connection.release();
+      console.log(`DB queryHistory err: ${err}`);
+      return res.status(500).send({ message: `DB queryHistory err: ${err}` });
+    }
+  } catch (err) {
+    return res.status(500).send({ message: `DB insertUserInfo err: ${err}` });
+  }
+};
+
+module.exports = {
+  queryPhone: queryPhone,
+  insertUserInfo: insertUserInfo,
+  queryHistory: queryHistory,
+};
