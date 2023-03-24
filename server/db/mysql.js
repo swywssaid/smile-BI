@@ -126,7 +126,6 @@ const queryHistory = async (res, page, pageSize, name, phone) => {
         [nameQuery, phoneQuery]
       );
 
-      console.log(rows, countRows.length);
       connection.release();
       return res
         .status(200)
