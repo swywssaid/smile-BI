@@ -49,10 +49,12 @@ export default function IssuancePage() {
 
     if (regex.test(input)) {
       setValue(input);
+      setWarningMessage('');
     }
 
     if (input === '') {
       setValue('');
+      setWarningMessage('');
     }
   };
 
