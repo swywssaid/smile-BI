@@ -81,3 +81,8 @@ ex. 이름 // 휴대전화 번호 // 쿠폰 번호 // 발급 일자
 - [x] 5개 초과 시, 다음으로 넘어가는 버튼 구현
 - [x] 다음 버튼 클릭 시, 다음 5개의 페이지 번호가 나타남
 - [**구현코드**](https://github.com/swywssaid/coupon-project/blob/main/client/src/components/HistoryPage/Pagination.jsx#L11)
+
+
+<br><br><br>
+
+[**추가적인 개발과정을 알고 싶다면**](https://github.com/swywssaid/coupon-project/wiki)
