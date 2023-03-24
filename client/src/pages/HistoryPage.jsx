@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../api/axios';
+import Button from '../components/common/Button';
 import Form from '../components/common/Form';
 import Pagination from '../components/HistoryPage/Pagination';
 

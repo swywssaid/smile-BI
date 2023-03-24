@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from '../api/axios';
+import Button from '../components/common/Button';
 import Form from '../components/common/Form';
 
 export default function IssuancePage() {
@@ -83,12 +84,11 @@ export default function IssuancePage() {
     <div>
       <Form {...nameProps} />
       <Form {...phoneProps} />
-      <button
+      <Button
+        text='발급받기'
+        handleClick={() => submitUserInfo('/api/coupon/issuance', { name, phone })}
         disabled={activateButton(name, phone)}
-        onClick={() => submitUserInfo('/api/coupon/issuance', { name, phone })}
-      >
-        발급받기
-      </button>
+      />
       <div>경고메시지: {warningMessage}</div>
       <div>쿠폰번호: {couponCode}</div>
     </div>
