@@ -51,9 +51,10 @@ export default function HistoryPage() {
 
   return (
     <div>
+      <h1>이력 조회 페이지</h1>
+      <div>원하는 정보를 검색할 수 있습니다</div>
       <Form {...nameProps} />
       <Form {...phoneProps} />
-      <h1>Coupon Dashboard</h1>
       <table>
         <thead>
           <tr>

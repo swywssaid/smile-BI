@@ -82,6 +82,8 @@ export default function IssuancePage() {
 
   return (
     <div>
+      <h1>쿠폰 발급 페이지</h1>
+      이름과 휴대폰 번호로 쿠폰을 발급 받을 수 있습니다
       <Form {...nameProps} />
       <Form {...phoneProps} />
       <Button
