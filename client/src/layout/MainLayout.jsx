@@ -43,6 +43,7 @@ const NavWrapper = styled.div`
 `;
 
 const SidebarWrapper = styled.div`
+  display: flex;
   position: fixed;
   left: 0;
   top: 60px;

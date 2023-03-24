@@ -15,16 +15,19 @@ export default function Sidebar({ pages }) {
 }
 
 const SidebarWrapper = styled.ul`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  align-items: center;
   list-style-type: none;
   margin: 0;
   padding: 0;
 `;
 
 const ListItem = styled.li`
-  padding: 30px;
-  &:hover {
-    background-color: #f5f5f5;
-  }
+  padding: 35px;
+  font-family: 'Pretendard-Light';
 `;
 
 const LinkStyled = styled(Link)`
