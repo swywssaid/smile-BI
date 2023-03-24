@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import axios from '../api/axios';
 import Button from '../components/common/Button';
 import Form from '../components/common/Form';
@@ -78,18 +79,61 @@ export default function IssuancePage() {
   };
 
   return (
-    <div>
-      <h1>쿠폰 발급 페이지</h1>
-      이름과 휴대폰 번호로 쿠폰을 발급 받을 수 있습니다
-      <Form {...nameProps} />
-      <Form {...phoneProps} />
-      <Button
-        text='발급받기'
-        handleClick={() => submitUserInfo('/api/coupon/issuance', { name, phone })}
-        disabled={activateButton(name, phone)}
-      />
-      <div>경고메시지: {warningMessage}</div>
-      <div>쿠폰번호: {couponCode}</div>
-    </div>
+    <IssuancePageWrapper>
+      <HeaderWrapper>
+        <Title>쿠폰 발급 페이지</Title>
+        <Description>이름과 휴대폰 번호로 쿠폰을 발급 받을 수 있습니다</Description>
+      </HeaderWrapper>
+      <FormWrapper>
+        <Form {...nameProps} />
+        <Form {...phoneProps} />
+        <Button
+          text='발급받기'
+          handleClick={() => submitUserInfo('/api/coupon/issuance', { name, phone })}
+          disabled={activateButton(name, phone)}
+        />
+        <WarningMessageWrapper>
+          {warningMessage}
+          {/* <div>쿠폰번호: {couponCode}</div> */}
+        </WarningMessageWrapper>
+      </FormWrapper>
+    </IssuancePageWrapper>
   );
 }
+
+const IssuancePageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+`;
+
+const HeaderWrapper = styled.div`
+  width: 100%;
+  padding: 100px;
+`;
+
+const Title = styled.h2`
+  font-family: 'Pretendard-Regular';
+  font-size: 30px;
+`;
+
+const Description = styled.div`
+  font-family: 'Pretendard-Light';
+  font-size: 18px;
+  padding-top: 35px;
+`;
+
+const FormWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  padding-left: 100px;
+  flex-direction: column;
+`;
+
+const WarningMessageWrapper = styled.div`
+  padding-top: 15px;
+  font-family: 'Pretendard-Light';
+  color: red;
+`;

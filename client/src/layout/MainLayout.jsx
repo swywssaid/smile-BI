@@ -54,7 +54,9 @@ const SidebarWrapper = styled.div`
 `;
 
 const MainWrapper = styled.main`
+  display: flex;
+  width: calc(100% - 200px);
+  height: calc(100% - 64px);
   flex: 1;
-  padding: 20px;
-  margin-left: 240px;
+  padding-left: 200px;
 `;
