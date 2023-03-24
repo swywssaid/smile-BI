@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../api/axios';
-import Button from '../components/common/Button';
 import Form from '../components/common/Form';
 import Pagination from '../components/HistoryPage/Pagination';
+import { useDebounce } from '../hooks/useDebounce';
 
 export default function HistoryPage() {
   const [name, setName] = useState('');
@@ -12,20 +12,21 @@ export default function HistoryPage() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const pageSize = process.env.REACT_APP_PAGE_SIZE;
+  const debouncedSearchNameTerm = useDebounce(name, 400);
+  const debouncedSearchPhoneTerm = useDebounce(phone, 400);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const request = await axios.get(
-        `/api/coupon/history?page=${currentPage}&pageSize=${pageSize}&name=${name}&phone=${phone}`,
-      );
+    fetchData(currentPage, pageSize, debouncedSearchNameTerm, debouncedSearchPhoneTerm);
+  }, [currentPage, pageSize, debouncedSearchNameTerm, debouncedSearchPhoneTerm]);
 
-      console.log(request.data.data, request.data.length);
-      setHistories(request.data.data);
-      setTotalPages(Math.ceil(request.data.length / pageSize));
-    };
+  const fetchData = async (currentPage, pageSize, debouncedSearchNameTerm, debouncedSearchPhoneTerm) => {
+    const request = await axios.get(
+      `/api/coupon/history?page=${currentPage}&pageSize=${pageSize}&name=${debouncedSearchNameTerm}&phone=${debouncedSearchPhoneTerm}`,
+    );
 
-    fetchData();
-  }, [pageSize, currentPage, name, phone]);
+    setHistories(request.data.data);
+    setTotalPages(Math.ceil(request.data.length / pageSize));
+  };
 
   const handleChangeName = (e) => {
     setName(e.target.value);
