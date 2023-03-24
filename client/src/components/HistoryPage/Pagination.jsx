@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 const pageGroupSize = +process.env.REACT_APP_PAGE_GROUP_SIZE;
 
@@ -36,28 +37,59 @@ export default function Pagination({ totalPages, currentPage, setCurrentPage }) 
 
     for (let i = startPage; i <= endPage; i++) {
       buttons.push(
-        <button key={i} onClick={() => handlePageClick(i)}>
+        <PageButton key={i} onClick={() => handlePageClick(i)}>
           {i}
-        </button>,
+        </PageButton>,
       );
     }
     return buttons;
   };
 
   return (
-    <div>
-      <button onClick={handlePrevClick} disabled={currentPage >= 1 && currentPage <= 5}>
+    <PaginationWrapper>
+      <PrevNextButton onClick={handlePrevClick} disabled={currentPage >= 1 && currentPage <= 5}>
         이전
-      </button>
+      </PrevNextButton>
       {renderPageButtons()}
-      <button
+      <PrevNextButton
         onClick={handleNextClick}
         disabled={
           currentPage >= Math.floor(totalPages / pageGroupSize) * pageGroupSize + 1 && currentPage <= totalPages
         }
       >
         다음
-      </button>
-    </div>
+      </PrevNextButton>
+    </PaginationWrapper>
   );
 }
+
+const PaginationWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
+const PageButton = styled.button`
+  font-size: 14px;
+  padding: 8px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 4px;
+  background-color: 'white';
+  color: black;
+  cursor: pointer;
+`;
+
+const PrevNextButton = styled.button`
+  font-size: 14px;
+  padding: 8px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 4px;
+  background-color: #ff8d3f;
+  color: white;
+  cursor: pointer;
+  opacity: ${(props) => (props.disabled ? 0.3 : 1)};
+  pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
+`;

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import axios from '../api/axios';
 import Form from '../components/common/Form';
 import Pagination from '../components/HistoryPage/Pagination';
@@ -41,6 +42,7 @@ export default function HistoryPage() {
     value: name,
     handleChange: handleChangeName,
     placeholder: '이름을 입력하세요!',
+    page: 'HistoryPage',
   };
 
   const phoneProps = {
@@ -48,15 +50,20 @@ export default function HistoryPage() {
     value: phone,
     handleChange: handleChangePhone,
     placeholder: '휴대폰 번호를 입력하세요!',
+    page: 'HistoryPage',
   };
 
   return (
-    <div>
-      <h1>이력 조회 페이지</h1>
-      <div>원하는 정보를 검색할 수 있습니다</div>
-      <Form {...nameProps} />
-      <Form {...phoneProps} />
-      <table>
+    <HistoryPageWrapper>
+      <HeaderWrapper>
+        <Title>이력 조회 페이지</Title>
+        <Description>원하는 정보를 검색할 수 있습니다</Description>
+      </HeaderWrapper>
+      <FormWrapper>
+        <Form {...nameProps} />
+        <Form {...phoneProps} />
+      </FormWrapper>
+      <Table>
         <thead>
           <tr>
             <th>Name</th>
@@ -75,8 +82,61 @@ export default function HistoryPage() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
       <Pagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
-    </div>
+    </HistoryPageWrapper>
   );
 }
+
+const HistoryPageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+`;
+
+const HeaderWrapper = styled.div`
+  width: 100%;
+  padding: 20px;
+`;
+
+const Title = styled.h2`
+  font-family: 'Pretendard-Regular';
+  font-size: 30px;
+`;
+
+const Description = styled.div`
+  font-family: 'Pretendard-Light';
+  font-size: 18px;
+  padding-top: 20px;
+`;
+
+const FormWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  padding-left: 20px;
+  flex-direction: row;
+`;
+
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  td {
+    font-size: 16px;
+  }
+`;

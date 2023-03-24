@@ -1,20 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function Form({ type, value, handleChange, placeholder }) {
+export default function Form({ type, value, handleChange, placeholder, page }) {
   return (
-    <FormWrapper>
-      <StyledInput type={type} placeholder={placeholder} value={value} onChange={handleChange} />
+    <FormWrapper page={page}>
+      <StyledInput type={type} placeholder={placeholder} value={value} onChange={handleChange} page={page} />
     </FormWrapper>
   );
 }
 
 const FormWrapper = styled.div`
   display: flex;
-  padding-bottom: 40px;
+  padding-bottom: ${(props) => (props.page === 'HistoryPage' ? '0px' : '40px')};
 `;
+
 const StyledInput = styled.input`
-  width: 500px;
+  width: ${(props) => (props.page === 'HistoryPage' ? '200px' : '500px')};
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
