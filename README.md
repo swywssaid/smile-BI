@@ -1,4 +1,4 @@
-# coupon-project
+# Smile BI
 
 ## 요구 기능
 ### Page 1. 게임 쿠폰 발급 페이지 개발
