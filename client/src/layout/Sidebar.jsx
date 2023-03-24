@@ -4,16 +4,33 @@ import styled from 'styled-components';
 
 export default function Sidebar({ pages }) {
   return (
-    <ul>
+    <SidebarWrapper>
       {pages.map((page) => (
-        <List key={page.id}>
-          <Link to={page.path}>{page.name}</Link>
-        </List>
+        <ListItem key={page.id}>
+          <LinkStyled to={page.path}>{page.name}</LinkStyled>
+        </ListItem>
       ))}
-    </ul>
+    </SidebarWrapper>
   );
 }
 
-const List = styled.li`
+const SidebarWrapper = styled.ul`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const ListItem = styled.li`
   padding: 30px;
+  &:hover {
+    background-color: #f5f5f5;
+  }
+`;
+
+const LinkStyled = styled(Link)`
+  text-decoration: none;
+  color: black;
+  &:visited {
+    color: black;
+  }
 `;

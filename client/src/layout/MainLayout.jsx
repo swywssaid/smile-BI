@@ -27,30 +27,33 @@ export default function MainLayout() {
 
 const LayoutWrapper = styled.div`
   display: flex;
-  padding-top: 56px;
+  padding-top: 60px;
   height: 100%;
-  padding-left: 240px;
 `;
 
 const NavWrapper = styled.div`
+  display: flex;
   position: fixed;
   top: 0;
   left: 0;
-  height: 64px;
+  height: 60px;
   width: 100%;
-  background-color: #ff9b00;
+  background-color: rgba(255, 103, 0, 0.8);
+  z-index: 1;
 `;
 
 const SidebarWrapper = styled.div`
-  display: flex;
   position: fixed;
   left: 0;
-  height: 100%;
-  width: 240px;
-  background-color: #fdf5e6;
+  top: 60px;
+  height: calc(100% - 64px);
+  width: 200px;
+  background-color: #f5f5f5;
+  z-index: 1;
 `;
 
 const MainWrapper = styled.main`
   flex: 1;
   padding: 20px;
+  margin-left: 240px;
 `;
