@@ -28,22 +28,22 @@ const queryPhone = async (res, phone) => {
       if (rows.length > 0) {
         res
           .status(400)
-          .json({ success: false, message: '이미 발급받은 핸드폰 번호입니다' });
+          .send({ success: false, message: '이미 발급받은 핸드폰 번호입니다' });
         return false;
       }
     } catch (err) {
       connection.release();
-      console.log(`DB queryPhone err: ${err} `);
+      res.status(500).send({ message: `DB queryPhone err: ${err}` });
       return false;
     }
   } catch (err) {
-    console.log(`DB queryPhone err: ${err} `);
+    res.status(500).send({ message: `DB queryPhone err: ${err}` });
     return false;
   }
 };
 
 // 유니크 쿠폰 번호 생성 함수
-const getUniqueCoupon = async () => {
+const getUniqueCoupon = async (res) => {
   try {
     const connection = await pool.getConnection(async (conn) => conn);
     let isDuplicated = true;
@@ -67,14 +67,14 @@ const getUniqueCoupon = async () => {
         if (rows.length === 0) isDuplicated = false;
       } catch (err) {
         connection.release();
-        console.log(`DB getUniqueCoupon err: ${err} `);
+        res.status(500).send({ message: `DB getUniqueCoupon err: ${err}` });
         return false;
       }
     }
 
     return couponCode;
   } catch (err) {
-    console.log(`DB getUniqueCoupon err: ${err} `);
+    res.status(500).send({ message: `DB getUniqueCoupon err: ${err}` });
     return false;
   }
 };
@@ -94,7 +94,6 @@ const insertUserInfo = async (res, phone, name, couponCode) => {
       return res.status(200).json({ success: true, data: couponCode });
     } catch (err) {
       connection.release();
-      console.log(`DB insertUserInfo err: ${err} `);
       return res.status(500).send({ message: `DB insertUserInfo err: ${err}` });
     }
   } catch (err) {
@@ -132,7 +131,6 @@ const queryHistory = async (res, page, pageSize, name, phone) => {
         .json({ success: true, data: rows, length: countRows.length });
     } catch (err) {
       connection.release();
-      console.log(`DB queryHistory err: ${err}`);
       return res.status(500).send({ message: `DB queryHistory err: ${err}` });
     }
   } catch (err) {
