@@ -3,12 +3,14 @@ import styled from 'styled-components';
 import axios from '../api/axios';
 import Button from '../components/common/Button';
 import Form from '../components/common/Form';
+import Modal from '../components/common/Modal';
 
 export default function IssuancePage() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [couponCode, setCouponCode] = useState('');
   const [warningMessage, setWarningMessage] = useState('');
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
 
   // 시작버튼 클릭 시 서버에 유저 정보 전달
   const submitUserInfo = async (url, data) => {
@@ -19,6 +21,7 @@ export default function IssuancePage() {
       .then((res) => {
         setCouponCode(res.data.data);
         setWarningMessage('');
+        setIsVisibleModal(true);
       })
       .catch((err) => {
         // 에러 처리
@@ -92,10 +95,12 @@ export default function IssuancePage() {
           handleClick={() => submitUserInfo('/api/coupon/issuance', { name, phone })}
           disabled={activateButton(name, phone)}
         />
-        <WarningMessageWrapper>
-          {warningMessage}
-          {/* <div>쿠폰번호: {couponCode}</div> */}
-        </WarningMessageWrapper>
+        <WarningMessageWrapper>{warningMessage}</WarningMessageWrapper>
+        {isVisibleModal && (
+          <Modal mainText={'쿠폰이 발급되었습니다'} subText={couponCode}>
+            <Button type='modal' text='종료하기' handleClick={() => setIsVisibleModal(false)} />
+          </Modal>
+        )}
       </FormWrapper>
     </IssuancePageWrapper>
   );

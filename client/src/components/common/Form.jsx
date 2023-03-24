@@ -20,6 +20,7 @@ const StyledInput = styled.input`
   padding: 10px;
   font-size: 16px;
   color: #333;
+  font-family: 'Pretendard-Light';
 
   &:focus {
     outline: none;

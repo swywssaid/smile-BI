@@ -1,16 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function Button({ text, handleClick, disabled }) {
+export default function Button({ type, text, handleClick, disabled }) {
   return (
-    <StyledButton disabled={disabled} onClick={handleClick}>
+    <StyledButton type={type} disabled={disabled} onClick={handleClick}>
       {text}
     </StyledButton>
   );
 }
 
 const StyledButton = styled.button`
-  width: 500px;
+  width: ${(props) => (props.type === 'modal' ? '200px' : '500px')};
   background: ${(props) => (props.disabled ? 'white' : 'black')};
   color: ${(props) => (props.disabled ? 'black' : 'white')};
   border: 1px solid black;
@@ -22,4 +22,5 @@ const StyledButton = styled.button`
   justify-content: center;
   align-items: center;
   line-height: 140%;
+  font-family: 'Pretendard-Light';
 `;
