@@ -15,7 +15,9 @@ export default function HistoryPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const request = await axios.get(`/api/coupon/history?page=${currentPage}&pageSize=${pageSize}&name=&phone=`);
+      const request = await axios.get(
+        `/api/coupon/history?page=${currentPage}&pageSize=${pageSize}&name=${name}&phone=${phone}`,
+      );
 
       console.log(request.data.data, request.data.length);
       setHistories(request.data.data);
@@ -23,7 +25,7 @@ export default function HistoryPage() {
     };
 
     fetchData();
-  }, [pageSize, currentPage]);
+  }, [pageSize, currentPage, name, phone]);
 
   const handleChangeName = (e) => {
     setName(e.target.value);
