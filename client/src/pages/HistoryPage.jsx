@@ -15,6 +15,7 @@ export default function HistoryPage() {
   const debouncedSearchNameTerm = useDebounce(name, 400);
   const debouncedSearchPhoneTerm = useDebounce(phone, 400);
 
+  // useDebounce를 통한 검색 최적화
   useEffect(() => {
     fetchData(currentPage, pageSize, debouncedSearchNameTerm, debouncedSearchPhoneTerm);
   }, [currentPage, pageSize, debouncedSearchNameTerm, debouncedSearchPhoneTerm]);

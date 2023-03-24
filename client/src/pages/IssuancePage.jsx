@@ -73,6 +73,7 @@ export default function IssuancePage() {
     placeholder: '휴대폰 번호를 입력하세요!',
   };
 
+  // 유효성 검사에 따른 버튼 활성화
   const activateButton = (name, phone) => {
     const nameRegex = /[a-z가-힣]{2,10}/;
     const phoneRegex = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;

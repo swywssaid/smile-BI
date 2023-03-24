@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 const pageGroupSize = +process.env.REACT_APP_PAGE_GROUP_SIZE;
 
+// 페이지네이션 기능을 구현하는 컴포넌트입니다.
 export default function Pagination({ totalPages, currentPage, setCurrentPage }) {
   const [count, setCount] = useState(0);
   const [startPage, setStartPage] = useState(1);
