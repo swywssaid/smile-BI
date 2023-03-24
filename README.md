@@ -16,6 +16,15 @@ ex. 이름 // 휴대전화 번호 // 쿠폰 번호 // 발급 일자
 
 <br><br>
 
+## 기술 스택
+<img src="https://img.shields.io/badge/javascript-F7DF1E?style=flat-square&logo=javascript&logoColor=black">
+<img src="https://img.shields.io/badge/react-61DAFB?style=flat-square&logo=react&logoColor=black">
+<img src="https://img.shields.io/badge/styled_components-DB7093?style=flat-square&logo=styled-components&logoColor=white"/>
+<img src="https://img.shields.io/badge/express-000000?style=flat-square&logo=express&logoColor=white">
+<img src="https://img.shields.io/badge/mysql-4479A1?style=flat-square&logo=mysql&logoColor=white">
+
+<br><br>
+
 ## 구현 기능
 
 ### 데이터베이스
