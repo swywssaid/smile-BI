@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../api/axios';
 import Form from '../components/common/Form';
+import Pagination from '../components/HistoryPage/Pagination';
 
 export default function HistoryPage() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [histories, setHistories] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const pageSize = process.env.REACT_APP_PAGE_SIZE;
 
   useEffect(() => {
     const fetchData = async () => {
-      const request = await axios.get('/api/coupon/history?page=1&pageSize=10&name=&phone=');
+      const request = await axios.get(`/api/coupon/history?page=${currentPage}&pageSize=${pageSize}&name=&phone=`);
 
-      console.log(request.data.data);
+      console.log(request.data.data, request.data.length);
       setHistories(request.data.data);
+      setTotalPages(Math.ceil(request.data.length / pageSize));
     };
 
     fetchData();
-  }, []);
+  }, [pageSize, currentPage]);
 
   const handleChangeName = (e) => {
     setName(e.target.value);
@@ -65,6 +70,7 @@ export default function HistoryPage() {
           ))}
         </tbody>
       </table>
+      <Pagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </div>
   );
 }
