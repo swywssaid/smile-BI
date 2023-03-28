@@ -58,6 +58,12 @@ export default function IssuancePage() {
     }
   };
 
+  const handleModalClosed = () => {
+    setIsVisibleModal(false);
+    setName('');
+    setPhone('');
+  };
+
   const nameRegex = /^[a-zㄱ-ㅎ가-힣]{1,}$/;
   const phoneRegex = /^[0-9]{1,}$/;
 
@@ -100,7 +106,7 @@ export default function IssuancePage() {
         <WarningMessageWrapper>{warningMessage}</WarningMessageWrapper>
         {isVisibleModal && (
           <Modal mainText={'쿠폰이 발급되었습니다'} subText={couponCode}>
-            <Button type='modal' text='종료하기' handleClick={() => setIsVisibleModal(false)} />
+            <Button type='modal' text='종료하기' handleClick={handleModalClosed} />
           </Modal>
         )}
       </FormWrapper>
