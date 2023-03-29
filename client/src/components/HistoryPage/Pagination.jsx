@@ -37,7 +37,7 @@ export default function Pagination({ totalPages, currentPage, setCurrentPage }) 
 
     for (let i = startPage; i <= endPage; i++) {
       buttons.push(
-        <PageButton key={i} onClick={() => handlePageClick(i)}>
+        <PageButton key={i} onClick={() => handlePageClick(i)} active={i === currentPage}>
           {i}
         </PageButton>,
       );
@@ -77,7 +77,7 @@ const PageButton = styled.button`
   border: none;
   border-radius: 4px;
   background-color: 'white';
-  color: black;
+  color: ${(props) => (props.active ? '#ff8d3f' : 'black')};
   cursor: pointer;
 `;
 

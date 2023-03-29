@@ -33,6 +33,7 @@ export default function HistoryPage() {
   const handleChangeName = (e) => {
     setName(e.target.value);
   };
+
   const handleChangePhone = (e) => {
     setPhone(e.target.value);
   };
