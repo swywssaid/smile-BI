@@ -6,7 +6,7 @@ import Sidebar from './Sidebar';
 
 export default function MainLayout() {
   const pages = [
-    { id: 1, name: '쿠폰 발급 페이지', path: '/' },
+    { id: 1, name: '주차권 발급 페이지', path: '/' },
     { id: 2, name: '이력 조회 페이지', path: '/history' },
   ];
 

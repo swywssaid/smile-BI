@@ -92,8 +92,8 @@ export default function IssuancePage() {
   return (
     <IssuancePageWrapper>
       <HeaderWrapper>
-        <Title>쿠폰 발급 페이지</Title>
-        <Description>이름과 휴대폰 번호로 쿠폰을 발급 받을 수 있습니다</Description>
+        <Title>발급 페이지</Title>
+        <Description>이름과 휴대폰 번호로 주차권을 발급 받을 수 있습니다</Description>
       </HeaderWrapper>
       <FormWrapper>
         <Form {...nameProps} />
@@ -105,7 +105,7 @@ export default function IssuancePage() {
         />
         <WarningMessageWrapper>{warningMessage}</WarningMessageWrapper>
         {isVisibleModal && (
-          <Modal mainText={'쿠폰이 발급되었습니다'} subText={couponCode}>
+          <Modal mainText={'주차권이 발급되었습니다'} subText={couponCode}>
             <Button type='modal' text='종료하기' handleClick={handleModalClosed} />
           </Modal>
         )}
