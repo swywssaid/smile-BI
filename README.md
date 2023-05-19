@@ -115,6 +115,18 @@ npm run dev
 - [x] 다음 버튼 클릭 시, 다음 5개의 페이지 번호가 나타남
 - [**구현코드**](https://github.com/swywssaid/coupon-project/blob/main/client/src/components/HistoryPage/Pagination.jsx#L11)
 
+<br><br>
+
+## 실행 결과
+### 쿠폰 발급
+
+![쿠폰발급](https://github.com/swywssaid/smile-BI/assets/94416699/dee9a42e-7f2d-43ed-9c3b-d35e9a287129)
+
+<br>
+
+### 쿠폰 조회
+
+![쿠폰조회](https://github.com/swywssaid/smile-BI/assets/94416699/447bacf7-ee66-44f5-833f-448c9d9f0d7c)
 
 <br><br><br>
 
